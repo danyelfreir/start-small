@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://dx1bjij2v65jw"]
+
+[ext_resource type="PackedScene" uid="uid://sdo5lssaeshg" path="res://player/player.tscn" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://dhgvw60bsows6" path="res://Main.cs" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://dweqrsv6r3xvw" path="res://enemies/enemy.tscn" id="2_h2yge"]
+[ext_resource type="Shader" uid="uid://7wmenbe3f2o4" path="res://player/player.gdshader" id="4_lquwl"]
+[ext_resource type="Texture2D" uid="uid://0okkfq7s5jcs" path="res://background.png" id="5_7mycd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_272bh"]
+shader = ExtResource("4_lquwl")
+shader_parameter/color = Vector4(0, 0, 1, 0.18)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_h2yge")
+EnemyScene = ExtResource("2_h2yge")
+spawnTimer = 1.81
+
+[node name="Player" parent="." instance=ExtResource("1_0xm2m")]
+
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_272bh")
+offset_left = -500000.0
+offset_top = -500000.0
+offset_right = 500000.0
+offset_bottom = 500000.0
+texture = ExtResource("5_7mycd")
+stretch_mode = 1

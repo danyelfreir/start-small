@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://sdo5lssaeshg"]
+
+[ext_resource type="Script" uid="uid://c2bwdtm1d7hoc" path="res://player/Player.cs" id="1_rkbax"]
+[ext_resource type="Shader" uid="uid://7wmenbe3f2o4" path="res://player/player.gdshader" id="2_qjkh3"]
+[ext_resource type="Script" uid="uid://bho4pao828a1m" path="res://components/WASDMovement.cs" id="3_g1dw6"]
+[ext_resource type="Texture2D" uid="uid://di80d5tvpxeqf" path="res://player/player.png" id="3_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://byit40y1inbse" path="res://components/strength.tscn" id="4_yw30f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_boad6"]
+shader = ExtResource("2_qjkh3")
+shader_parameter/color = Vector4(0.5, 1, 0.5, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1dw6"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("strengthComponent", "playerCamera")]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_rkbax")
+strengthComponent = NodePath("Strength")
+playerCamera = NodePath("Camera2D")
+metadata/_edit_group_ = true
+metadata/is_player = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_boad6")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_qjkh3")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="WASDMovement" type="Node" parent="." node_paths=PackedStringArray("Player")]
+script = ExtResource("3_g1dw6")
+Speed = 300.11
+Player = NodePath("..")
+
+[node name="FightArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FightArea"]
+shape = SubResource("CircleShape2D_g1dw6")
+
+[node name="AggroArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_g1dw6")
+
+[node name="Strength" parent="." instance=ExtResource("4_yw30f")]
